@@ -1,0 +1,56 @@
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#camera-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#camera-preview, #captured-image {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+}
+
+#capture-button {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#analysis-result {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e7f3fe;
+    border: 1px solid #b6d4fe;
+    border-radius: 5px;
+}
+
+#analysis-result strong {
+    color: #0a58ca;
+}

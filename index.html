@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anemia Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        video {
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        #canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Anemia Detection</h1>
+    <video id="video" autoplay></video>
+    <button id="capture">Capture</button>
+    <canvas id="canvas"></canvas>
+    <div id="result"></div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const resultDiv = document.getElementById('result');
+        const captureButton = document.getElementById('capture');
+        const context = canvas.getContext('2d');
+
+        // Access the camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Error accessing the camera: ", err);
+            });
+
+        // Capture image and send to server
+        captureButton.addEventListener('click', () => {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            canvas.toBlob(blob => {
+                const formData = new FormData();
+                formData.append('image', blob);
+
+                fetch('http://localhost:5000/analyze', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    resultDiv.textContent = `Blood level: ${data.blood_level}`;
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+</body>
+</html>
